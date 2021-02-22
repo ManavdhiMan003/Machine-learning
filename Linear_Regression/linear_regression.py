@@ -45,6 +45,28 @@ def get_value(train_data):
         lx.append(train_data['x'][i])
     return lx
 
+def accuracy(c,m,data):
+    n = len(data)
+    x=0
+    y=0
+    p=0
+    acc=0
+    y_mean=0
+    for i in range(n):
+       x = data['x'][i]
+       y = data['y'][i]
+       p = c + m*x
+       y_mean = y_mean + (y-p)
+    y_mean = y_mean/n
+    for i in range(n):
+        # x = data['x'][i]
+        y = data['y'][i]
+        # p = c + m*x
+        acc = acc + (y-y_mean)*(y-y_mean)
+    return math.sqrt(acc)
+    
+    
+    
 sx,sy=mean(train_data)
 num,deno = get_num_deno(sx,sy,train_data)
 lx = get_value(train_data)
@@ -67,3 +89,10 @@ for i in range(n):
 
 plt.scatter(x,y,color='black')
 plt.plot(lx,c+m*lx,color='red')
+plt.xlabel("X-Axis")
+plt.ylabel("Y-Axis")
+
+
+acc=accuracy(c,m,test_data)
+acc = acc/n
+print("Root mean square error of model : ",acc)
