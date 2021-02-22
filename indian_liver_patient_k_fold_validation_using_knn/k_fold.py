@@ -89,6 +89,7 @@ div=int(leng/k)
 i=1
 result=[]
 avg=0
+mx=0
 grp = {}
 K=int(input("Enter value of K use in KNN algo "))
 while i<=k:
@@ -96,7 +97,8 @@ while i<=k:
     # print(tst)
     temp = predict(data,tst,trn,K)    
     temp = temp/(len(tst))*100                    
-    avg=max(avg,temp)
+    mx=max(mx,temp)
+    avg=avg+temp
     grp[i]=temp
     if(temp==avg):
         result.clear()
@@ -112,5 +114,6 @@ plt.ylabel("Accuracy")
 plt.title("Graph between Accuracy and K-fold")
 plt.show()
 
-print("Maximum accuracy : ",avg)
+print("Maximum accuracy : ",mx)
+print("Average accuracy : ",(avg/(k*100))*100)
 print("Training data to be used : ",result)
