@@ -51,19 +51,21 @@ def accuracy(c,m,data):
     y=0
     p=0
     acc=0
+    residual = []
     y_mean=0
     for i in range(n):
        x = data['x'][i]
        y = data['y'][i]
        p = c + m*x
        y_mean = y_mean + (y-p)
+       residual.append(y-p)
     y_mean = y_mean/n
     for i in range(n):
         # x = data['x'][i]
         y = data['y'][i]
         # p = c + m*x
         acc = acc + (y-y_mean)*(y-y_mean)
-    return math.sqrt(acc)
+    return math.sqrt(acc),residual
     
     
     
@@ -91,8 +93,13 @@ plt.scatter(x,y,color='black')
 plt.plot(lx,c+m*lx,color='red')
 plt.xlabel("X-Axis")
 plt.ylabel("Y-Axis")
+plt.show()
 
-
-acc=accuracy(c,m,test_data)
+acc,residual=accuracy(c,m,test_data)
+plt.scatter(x,residual,color='blue')
+plt.xlabel("X-Axis")
+plt.ylabel("Y-Axis")
+plt.title("Residual graph")
+plt.show()
 acc = acc/n
 print("Root mean square error of model : ",acc)
