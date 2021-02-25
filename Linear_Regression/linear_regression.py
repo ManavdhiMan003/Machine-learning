@@ -34,8 +34,8 @@ def get_num_deno(sx,sy,data):
     deno=0
     n=len(train_data)
     for i in range(n):
-        num = (train_data['x'][i]-sx)*(train_data['y'][i]-sy)
-        deno = (train_data['x'][i]-sx)*(train_data['x'][i]-sx)
+        num = num + (train_data['x'][i]-sx)*(train_data['y'][i]-sy)
+        deno = deno + (train_data['x'][i]-sx)*(train_data['x'][i]-sx)
     return num,deno   
 
 def get_value(train_data):
